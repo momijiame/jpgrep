@@ -69,10 +69,12 @@ class StreamDetector(object):
     def feed(self, line):
         position = self._find(line)
 
-        if position == -1 and self.inverse:
-            # inverse のときは見つからなかったときに Trove を返す必要がある
-            # position は Trove を返しつつシンタックスハイライトが不要とわかるように None にしておく
-            position = None
+        if self.inverse:
+            '''
+            inverse モードのときはマッチしなかった行を返す必要がある
+            見つかった場所は設定しようがないので None にしておく
+            '''
+            position = -1 if position != -1 else None
 
         if position == -1:
             return None

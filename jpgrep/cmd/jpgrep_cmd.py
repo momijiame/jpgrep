@@ -17,8 +17,8 @@ from jpgrep.morpheme import StreamDetector
 
 
 def _open(filepath):
-    file = open(filepath, mode='rb')
-    wrapper = FileObjectWrapper(file)
+    file_ = open(filepath, mode='rb')
+    wrapper = FileObjectWrapper(file_)
     return wrapper
 
 
@@ -44,8 +44,8 @@ def cmd(inverse, query, files):
         targets = [FileObjectWrapper(sys.stdin)]
 
     # 処理対象のファイルがある場合はバイナリモードでオープンする
-    for file in files:
-        relpathes = filepathes(file)
+    for file_ in files:
+        relpathes = filepathes(file_)
         file_objects = [_open(relpath) for relpath in relpathes]
         targets.extend(file_objects)
 
@@ -67,7 +67,7 @@ def _print(name, line):
         print(line)
     else:
         path = os.path.relpath(name)
-        msg = '{path}:{line}'.format(path=path, line=line)
+        msg = u'{path}:{line}'.format(path=path, line=line)
         print(msg)
 
 
@@ -77,8 +77,8 @@ def _is_stdio(name):
 
 def _dispatch(target, query, inverse):
     detector = StreamDetector(query, inverse)
-    with target.file as file:
-        binary = file.read()
+    with target.file as file_:
+        binary = file_.read()
 
     encoding = get_encoding(binary)
     if encoding is None:

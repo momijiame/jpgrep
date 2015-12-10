@@ -17,7 +17,7 @@ from jpgrep.util import ByteWrapper
 class Test_binary2unicode(object):
 
     def test(self):
-        """ 正常系: バイト列をユニコード文字列に変換する """
+        """ バイト列をユニコード文字列に変換する """
         expect = u'吾輩は猫である'
         binary = expect.encode('utf-8')
 
@@ -29,7 +29,7 @@ class Test_binary2unicode(object):
 class Test_FileObjectWrapper(object):
 
     def test_str(self):
-        """ 正常系: パスからラッパーオブジェクトを作る """
+        """ パスからラッパーオブジェクトを作る """
         wrapper = FileObjectWrapper('/dev/null')
 
         eq_(wrapper.name, '/dev/null')
@@ -38,7 +38,7 @@ class Test_FileObjectWrapper(object):
             f.read(1)
 
     def test_file(self):
-        """ 正常系: ファイルオブジェクトからラッパーオブジェクトを作る """
+        """ ファイルオブジェクトからラッパーオブジェクトを作る """
         f = open('/dev/null')
         wrapper = FileObjectWrapper(f)
 
@@ -48,7 +48,7 @@ class Test_FileObjectWrapper(object):
             f.read(1)
 
     def test_std(self):
-        """ 正常系: sys.stdin からラッパーオブジェクトを作る """
+        """ sys.stdin からラッパーオブジェクトを作る """
         wrapper = FileObjectWrapper(sys.stdin)
 
         eq_(wrapper.name, '<stdin>')
@@ -58,7 +58,7 @@ class Test_FileObjectWrapper(object):
             pass
 
     def test_pickle(self):
-        """ 正常系: Pickle 化、非 Pickle 化する """
+        """ Pickle 化、非 Pickle 化する """
         wrapper = FileObjectWrapper('/dev/null')
 
         binary = pickle.dumps(wrapper)
@@ -70,7 +70,7 @@ class Test_FileObjectWrapper(object):
             f.read(1)
 
     def test_pickle_std(self):
-        """ 正常系: sts.stdin のラッパーオブジェクトの Pickle を確認する """
+        """ sts.stdin のラッパーオブジェクトの Pickle を確認する """
         wrapper = FileObjectWrapper(sys.stdin)
 
         binary = pickle.dumps(wrapper)
@@ -79,7 +79,7 @@ class Test_FileObjectWrapper(object):
         ok_(hasattr(restored_object.file, 'read'))
 
     def test_pickle_unicode_file(self):
-        """ 正常系: 文字列モードで開いたファイルからバイト列を取り出す """
+        """ 文字列モードで開いたファイルからバイト列を取り出す """
         message = u'こんにちは、世界'
         file_ = io.StringIO(message)
         byte_wrapper = ByteWrapper(file_)
@@ -95,7 +95,7 @@ class Test_FileObjectWrapper(object):
 class Test_ByteWrapper(object):
 
     def test(self):
-        """ 正常系: 文字列モードのファイルライクオブジェクトからバイト列を取り出す """
+        """ 文字列モードのファイルライクオブジェクトからバイト列を取り出す """
         message = u'こんにちは、世界'
         file_ = io.StringIO(message)
         wrapper = ByteWrapper(file_)

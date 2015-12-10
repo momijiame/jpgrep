@@ -29,6 +29,11 @@ $ jpgrep <word> <directory or file>
 $ jpgrep <word>
 ```
 
+一致しないものを探すには -v (--inverse) オプションをつけます。
+```
+$ jpgrep -v <word>
+```
+
 ## 例
 
 次のファイルには「事実」と「事」というふたつの単語が含まれています。
@@ -46,4 +51,11 @@ sample.txt:そういう事です
 ```
 $ cat sample.txt | jpgrep "事"
 そういう事です
+```
+
+一致しないものを探すには -v オプションを使います。
+```
+$ jpgrep -v "事" sample.txt
+sample.txt:それは事実です
+sample.txt:
 ```
